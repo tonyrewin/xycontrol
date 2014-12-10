@@ -1,4 +1,4 @@
-AUValidator
+XYAudioView
 ===========
 
 ![alt tag](https://raw.githubusercontent.com/garynewby/XYAudioView/master/screen.png)
