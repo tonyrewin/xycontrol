@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Gary Newby. All rights reserved.
 //
 
-#import "XYAVAudioEngine.h"
+#import "BasicAVAudioEngine.h"
 #import <AVFoundation/AVFoundation.h>
 
 
-@interface XYAVAudioEngine ()
+@interface BasicAVAudioEngine ()
 
 @property(nonatomic, strong) AVAudioEngine *engine;
 @property(nonatomic, strong) AVAudioMixerNode *mainMixer;
@@ -19,13 +19,14 @@
 @property(nonatomic, strong) AVAudioPlayerNode *soundPlayer;
 @property(nonatomic, strong) AVAudioFormat *fxFormat;
 @property(nonatomic, strong) AVAudioFile *soundFile;
+@property(nonatomic, strong) AVAudioInputNode *inputNode;
 @property(nonatomic, assign) NSUInteger numOfChannels;
 @property(nonatomic, assign) float SR;
 
 @end
 
 
-@implementation XYAVAudioEngine
+@implementation BasicAVAudioEngine
 
 
 - (instancetype)init
@@ -35,10 +36,14 @@
 
         NSError *error;
         AVAudioSession *session = [AVAudioSession sharedInstance];
-        [session setCategory:AVAudioSessionCategoryPlayback error:&error];
+        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+        [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error]; // quiet otherwise
         
         // Engine
         _engine = [[AVAudioEngine alloc] init];
+        
+        self.inputNode = self.engine.inputNode;
+
         _mainMixer = [_engine mainMixerNode];
         _mainMixer.outputVolume = 1;
         _numOfChannels = _mainMixer.numberOfOutputs;

@@ -47,7 +47,7 @@
     _foreColour = [UIColor colorWithHue:hue saturation:saturation brightness:brightness*0.2 alpha:alpha];
     _name = @"--";
     _fsize = CGRectGetHeight(self.frame) * 0.05;
-    _font = [UIFont systemFontOfSize:12.0];
+    _font = [UIFont systemFontOfSize:14.0];
     _paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     _paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
     _paragraphStyle.alignment = NSTextAlignmentLeft;
